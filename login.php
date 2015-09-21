@@ -1,5 +1,5 @@
-<?php include("top.html"); ?>
+<?php include("include/top.html"); ?>
 <div>
     
 </div>  
-<?php include("bottom.html"); ?>
+<?php include("include/bottom.html"); ?>
