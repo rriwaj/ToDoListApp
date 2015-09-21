@@ -11,4 +11,4 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
-include/
+include/db-connection.php
