@@ -37,7 +37,7 @@ $user = filter_input(INPUT_COOKIE, "currentUser");
                 </label>
             </div>
 
-            <input  class="btn btn-lg btn-primary btn-block"type="submit"  value="login"/>
+            <input  class="btn btn-lg btn-primary btn-block" type="submit"  value="login"/>
 
         </form>
 

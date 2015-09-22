@@ -23,7 +23,7 @@ if ($user != NULL && $password === $user['password']) {
     header("Location: login.php");
 } else {
     $_SESSION['error'] = "Invalid username or password";
-    header("Location: login.php");
+    header("Location: todolistobject.php");
     exit();
 }
 ?>
