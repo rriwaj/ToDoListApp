@@ -1,0 +1,59 @@
+/*@import url(//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);*/
+/*
+.detailBox {
+    width:320px;
+    border:1px solid #bbb;
+    margin:50px;
+}*/
+a:hover{
+    text-decoration: none;
+}
+#lblLoggedInUser{
+    font-size: 16px;
+}
+#lblLoggedInUser,.todo-author,.todo-comments-author{   
+    font-weight: bold;
+    color:#3b5998;
+}
+.todo-all > ul{
+    /*padding:5px;*/
+}
+.todo-items{
+    padding:0;
+    list-style:none;
+    /*max-height:500px;*/
+    overflow:auto;
+}
+.todo-items > li {
+    border: 1px solid #bbb;
+    padding:10px;
+    margin-top:10px;    
+}
+.todo-author{
+    font-size: 14px;
+}
+.todo-author > a{
+    color:#000;
+}
+.sub-text {
+    color:#666;
+    font-family:verdana;
+    font-size:10px;
+}
+.todo-comments-all{
+    list-style: none;
+    font-size: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.todo-comments-all > li{
+    border-bottom: 1px solid #ccc;
+    padding:5px 0;
+}
+.todo-comments-all > li:last-child{
+    border:none;
+}
+.todo-comment-option > a,.todo-item-option> a{
+    padding:0 5px;   
+    color:#666;
+}
