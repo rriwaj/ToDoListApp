@@ -13,4 +13,3 @@ $stmt = $db->prepare("INSERT INTO todolist VALUES (NULL,:text, :done, :userid, :
 $stmt->execute(array(':text' => $post_text, ':done' => $item_done, 'userid' => $userid
     , ':date' => $created_date));
 echo "Finished";
-

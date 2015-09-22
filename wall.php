@@ -3,7 +3,7 @@
 <link href="css/style.css" rel="stylesheet" type="text/css"/>
 <body>    
     <script src="js/wall.js" type="text/javascript"></script>
-    
+
     <div class="col-md-3">   
     </div>
     <div class="col-md-9">
@@ -35,7 +35,7 @@
                         <span class="date sub-text">on March 5th, 2014</span>
                     </div>
                     <ul class="todo-comments-all">
-                        <li todo-comment-id="1">
+                        <li id="1">
                             <span class="todo-comments-author">
                                 <strong>Prabin Dahal</strong>
                             </span>
@@ -56,9 +56,9 @@
                     </ul>
                     <form role="form">                   
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="What do you think about this?">
+                            <input type="text" id="1" class="form-control" placeholder="What do you think about this?">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Comment</button>
+                                <button class="btn btn-default btn-comment" data-id="1" type="button">Comment</button>
                             </span>
                         </div>
                     </form>
@@ -108,9 +108,9 @@
                     </ul>
                     <form role="form">                   
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="What do you think about this?">
+                            <input type="text" id="2" class="form-control" placeholder="What do you think about this?">
                             <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">Comment</button>
+                                <button class="btn btn-default btn-comment" data-id="2" type="button">Comment</button>
                             </span>
                         </div>
                     </form>
