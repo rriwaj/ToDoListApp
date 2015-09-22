@@ -1,4 +1,5 @@
 $(function () {
+    //data load 
     $("#btnAddNewToDo").on('click', function () {
         var task = $("#txtNewToDo").val();
         insertNewToDo(task);
@@ -21,6 +22,15 @@ $(function () {
         //R
         function retrieve() {
 
+            $.ajax({url: 'todolistobject.php', type: 'get', async: false,
+                success: function (data) {
+                    todoObj = data;
+                }
+            });
+            return todoObj;
+        }
+        function set(x) {
+            return x;
         }
         // R by id
         function retrieveById(id) {
@@ -38,7 +48,8 @@ $(function () {
             todoObj: todoObj,
             add: insert,
             update: "",
-            delete: ""
+            delete: "",
+            fetchdata: retrieve
         };
         return publicAPI;
     };
@@ -53,15 +64,9 @@ $(function () {
         var obj = {
             text: userInput
         };
-
-        var operation = todoOpertion();
+        var operation = todoOperation();
         operation.todoObj = obj;
         operation.add();
-//        var $todotask = $("#txtNewToDo").val();
-//        if ($todotask.length > 0) {
-//            insertNewToDo($todotask);
-//        }
-
     }
 
     var commentsOperation = function () {
@@ -112,3 +117,25 @@ $(function () {
         cmnt.add();
     }
 });
+(function retrieveAll() {           //pageload retrieve event IIFE
+    var operation1 = todoOperation();
+    var result = operation1.fetchdata();
+    displayAllPosts(result);
+})();
+
+function displayAllPosts(result) {
+
+//    $('.todo-all').append($("<ul class='todo-items'>"));
+//
+//    //$.each(result, function (id, value) {
+//    var i;
+//    for (i = 0; i < 7; i++) {
+//        $('.todo-items').append("<li>").append('<div class="dropdown todo-author">')
+//        .append(result[i].item_text);
+//    }
+
+//    var i;
+//    for (i = 0; i < 7; i++) {
+//      console.log(result[i].item_text, result[i].user_id, result[i].created_date);
+//    }
+}
