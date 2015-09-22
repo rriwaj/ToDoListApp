@@ -9,35 +9,41 @@ if (isset($_SESSION['error'])) {
 }
 $user = filter_input(INPUT_COOKIE, "currentUser");
 ?>
-<div>
-    <form action="loginsubmit.php" method="post">
-        <fieldset>
+<style>
+    .form-signin{
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;}
+    </style>
 
-            <legend>User Login</legend>
+    <div class="container">
+        <form class="form-signin" action="loginsubmit.php" method="post">
+            <h2 class="form-signin-heading">User Login</h2>
 
-            <?php if ($error): ?>
+            <label for="inputUser" class="sr-only"></label>
+            <input class="form-control" placeholder="username" required autofocus type="text" name="name"<?php if ($user) : ?>
+                       value="<?= $user ?>"  <?php endif; ?>  />
+
+            <label for="inputPassword" class="sr-only"></label>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="currentUser" value="on"
+                    <?php if ($user) : ?>
+                               checked
+                           <?php endif; ?>
+                           />Remember me
+                </label>
+            </div>
+
+            <input  class="btn btn-lg btn-primary btn-block"type="submit"  value="login"/>
+
+        </form>
+
+        <div><?php if ($error): ?>
                 <p align="center" style="color: red"><?= $error ?></p>
             <?php endif; ?>
-
-            <p><span> Name: </span>
-                <input type="text" name="name" size="16"<?php if ($user) : ?>
-                           value="<?= $user ?>"  <?php endif; ?>  />
-            </p>
-
-            <p><span>Password: </span>
-                <input type="password" name="password" size="16">
-            </p>
-
-            <input type="checkbox" name="currentUser" value="on"
-            <?php if ($user) : ?>
-                       checked
-                   <?php endif; ?>
-                   />Remember me<br>
-
-            <p><input type="submit"  value="login"/></p>
-
-        </fieldset>
-
-    </form>
-</div>
+        </div>
+    </div>
 <?php include("include/bottom.html"); ?>
