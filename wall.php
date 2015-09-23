@@ -18,11 +18,11 @@
         </div>
         <div class="todo-all">
             <ul class="todo-items">
-                <li todo-id="1">
+                <li data-todoitem-id="1">
                     <div class="dropdown todo-author">
                         Dheeraj Pandey
                         <span class="todo-item-option">
-                            <a href="javascript:void(0);"  class="dropdown-toggle glyphicon glyphicon-chevron-down pull-right" data-toggle="dropdown"></a>                         
+                            <a href="#"  class="dropdown-toggle glyphicon glyphicon-chevron-down pull-right" data-toggle="dropdown"></a>                         
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="javascript:void(0);" data-id="1" class="edit-post">Edit</a></li>                            
                                 <li><a href="javascript:void(0);" data-id="1" class="delete-post">Delete</a></li>
@@ -36,11 +36,13 @@
                     </div>
                     <ul class="todo-comments-all">
                         <li>
+
+                        <li data-comment-id="1">
                             <span class="todo-comments-author">
-                                <strong>Prabin Dahal</strong>
+                                Prabin Dahal
                             </span>
                             <span class="todo-comment">
-                                <span class="todo-comment">When is the deadline?</span><br>
+                                When is the deadline?<br>
                                 <span class="date sub-text">on March 5th, 2014</span>
                             </span>
                         </li>

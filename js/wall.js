@@ -4,7 +4,7 @@ $(function () {
         var task = $("#txtNewToDo").val();
         insertNewToDo(task);
     });
-    $(".edit-post").on('click', function () {
+    $(document.body).on('click', '.edit-post', function () {
         var postId = $(this).data("id");
         var item_text = "replace with me";//        $(".todo-text").val();
         update(item_text, postId);
@@ -14,7 +14,7 @@ $(function () {
         $(".todo-text").val();
         remove(postId);
     });
-    
+
     var todoOperation = function () {
         var todoObj; //C
         function insert() {
@@ -108,12 +108,17 @@ $(function () {
     }
 
 });
+//function call() {
+//    alert('here');
+//}
 function displayAllPosts(result) {
+
     var $todoItems = $('<ul class="todo-items">');
     $(result).each(function (idx, obj) {
+//            document.write(JSON.stringify(obj));
         var $todoItem = $('<li data-todoitem-id="' + obj.item_id + '">');
         // post section
-        var $todoItemAuthor = $('<div class="dropdown todo-author">').text(obj.username); // join and bring user name
+        var $todoItemAuthor = $('<div class="dropdown todo-author">').text(obj.post_created_by); // join and bring user name
         var $todoItemOption = $('<span class="todo-item-option">')
                 .append('<a href="#"  class="dropdown-toggle glyphicon glyphicon-chevron-down pull-right" data-toggle="dropdown"></a>');
         var $todoItemOptionMenu = $(
@@ -139,6 +144,8 @@ function displayAllPosts(result) {
             $todoList.append($todoComment);
             $todoCommentsAll.append($todoList);
         }
+
+        $todoItem.append($todoCommentsAll);
 
         $todoItem.append($todoCommentsAll);
         // comment form section
