@@ -5,7 +5,11 @@ if (isset($_GET["delay"])) {
     sleep((int) ($_GET["delay"]));
 }
 $userid = 1; //$_SESSION('userid');
-$stmt = $db->prepare("SELECT * FROM todolist WHERE user_id = :userid");
+//$stmt = $db->prepare("SELECT * FROM todolist WHERE user_id = :userid");
+
+$stmt = $db->prepare("SELECT t.item_id,u.user_id,t.item_text,t.item_done,t.created_date  AS post_created_date, u.username, c.comment_text, c.created_date AS comment_created_date
+FROM todolist t INNER JOIN users u ON t.user_id = u.user_id LEFT JOIN comments c ON c.item_id = t.item_id WHERE u.user_id = :userid");
+
 
 $stmt->execute(array(':userid' => $userid));
 
