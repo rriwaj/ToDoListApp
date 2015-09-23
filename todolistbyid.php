@@ -1,11 +1,9 @@
 <?php
 
 require './include/db-connection.php';
-if (isset($_GET["delay"])) {
-    sleep((int) ($_GET["delay"]));
-}
+
 $userid = 1; //$_SESSION('userid');
-$stmt = $db->prepare("SELECT * FROM todolist");
+$stmt = $db->prepare("SELECT * FROM todolist WHERE user_id = :userid ORDER BY created_date DESC");
 
 $stmt->execute(array(':userid' => $userid));
 

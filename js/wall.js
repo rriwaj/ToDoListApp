@@ -1,15 +1,29 @@
 $(function () {
-    //data load 
+
     $("#btnAddNewToDo").on('click', function () {
         var task = $("#txtNewToDo").val();
         insertNewToDo(task);
     });
-    $(".btn-comment").on('click', function () {
+
+    $(".edit-post").on('click', function () {
         var postId = $(this).data("id");
-        var postCmnt = $("#" + postId).val();
-        insertNewComments(postId, postCmnt);
+        var item_text = "replace with me";
+        $(".todo-text").val();
+        update(item_text, postId);
     });
-    var todoOpertion = function () {
+
+    $(".delete-post").on('click', function () {
+        var postId = $(this).data("id");
+        $(".todo-text").val();
+        remove(postId);
+    });
+
+    $("#edit").on('click', function () {
+        var task = $("#txtNewToDo").val();
+        update(task);
+    });
+
+    var todoOperation = function () {
         var todoObj;
         //C
         function insert() {
@@ -29,31 +43,38 @@ $(function () {
             });
             return todoObj;
         }
-        function set(x) {
-            return x;
-        }
         // R by id
-        function retrieveById(id) {
-
-        }
+//        function retrievebyid() {
+//            $.ajax({url: 'todolistbyid.php', type: 'get', async: false, data: {}, //4,
+//                success: function (data) {
+//                    todoObj = data;
+//                }
+//            });
+//            return todoObj;
+//        }
         //U
         function update() {
-            // ajax method call to php file
+            $.post('updatepost.php', {item_text: this.todoObj.text, item_id: this.todoObj.itemid})
+                    .done(function (data) {
+                        alert(data);
+                    });
         }
         //D
         function remove() {
-            // ajax method call to php file
+            $.post('removepost.php', {item_id: this.todoObj.itemid}).done(function (data) {
+                alert(data);
+            });
         }
         var publicAPI = {
             todoObj: todoObj,
             add: insert,
-            update: "",
-            delete: "",
+            update: update,
+            delete: remove,
             fetchdata: retrieve
+            //fetch: retrievebyid
         };
         return publicAPI;
     };
-
     function insertNewToDo(userInput) {
         //1. validation
         //2. create javascript object for publicAPI
@@ -69,60 +90,41 @@ $(function () {
         operation.add();
     }
 
-    var commentsOperation = function () {
-        // private fields
-        var cmntObj;
-        //private method
-        //C
-        function insert() {
-            // ajax method call to php file
-            $.post('commentsrear.php', {comment: this.cmntObj.comment, post_id: this.cmntObj.postId}).done(function (data) {
-                alert(data);
-            });
+    function update(userInput, item_id) {
+        if (userInput.length < 0) {
+            return;
         }
-        //R
-        function retrieve() {
-
-        }
-        // R by id
-        function retrieveById(id) {
-//            $.get('commentsrear.php')
-            return cmntObj = {
-            };
-        }
-        //U
-        function update() {
-            // ajax method call to php file
-        }
-        //D
-        function remove() {
-            // ajax method call to php file
-        }
-        var publicAPI = {
-            cmntObj: cmntObj,
-            add: insert,
-            select: retrieve,
-            selectById: retrieveById,
-            delete: remove
+        var obj = {
+            text: userInput,
+            itemid: item_id
         };
-        return publicAPI;
-    };
-
-    function insertNewComments(postId, userComment) {
-        var cmnt = commentsOperation();
-        cmnt.cmntObj = {
-            postId: postId,
-            comment: userComment
-        };
-        cmnt.add();
+        var operation = todoOperation();
+        operation.todoObj = obj;
+        operation.update();
     }
-});
-(function retrieveAll() {           //pageload retrieve event IIFE
-    var operation1 = todoOperation();
-    var result = operation1.fetchdata();
-    displayAllPosts(result);
-})();
 
+    (function retrieveAll() {           //pageload retrieve event IIFE
+        var operation1 = todoOperation();
+        var result = operation1.fetchdata();
+        displayAllPosts(result);
+    })();
+
+//    function retrievebyid() {
+//        var operation = todoOperation();
+//        var result = operation.fetch();
+//        //updateposts(result);
+//    }
+
+    function remove(postid) {
+        var obj = {
+            itemid: postid
+        };
+        var operation = todoOperation();
+        operation.todoObj = obj;
+        operation.delete();
+    }
+
+});
 function displayAllPosts(result) {
 
 //    $('.todo-all').append($("<ul class='todo-items'>"));

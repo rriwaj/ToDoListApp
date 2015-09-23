@@ -3,7 +3,7 @@
 <link href="css/style.css" rel="stylesheet" type="text/css"/>
 <body>    
     <script src="js/wall.js" type="text/javascript"></script>
-
+    <script src="js/comments.js" type="text/javascript"></script>
     <div class="col-md-3">   
     </div>
     <div class="col-md-9">
@@ -24,8 +24,8 @@
                         <span class="todo-item-option">
                             <a href="javascript:void(0);"  class="dropdown-toggle glyphicon glyphicon-chevron-down pull-right" data-toggle="dropdown"></a>                         
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Edit</a></li>                            
-                                <li><a href="javascript:void(0);">Delete</a></li>
+                                <li><a href="javascript:void(0);" data-id="1" class="edit-post">Edit</a></li>                            
+                                <li><a href="javascript:void(0);" data-id="1" class="delete-post">Delete</a></li>
                                 <li><a href="javascript:void(0);">Done</a></li>
                             </ul>
                         </span>
@@ -35,7 +35,7 @@
                         <span class="date sub-text">on March 5th, 2014</span>
                     </div>
                     <ul class="todo-comments-all">
-                        <li id="1">
+                        <li>
                             <span class="todo-comments-author">
                                 <strong>Prabin Dahal</strong>
                             </span>
