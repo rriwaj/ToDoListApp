@@ -4,28 +4,33 @@ require './include/db-connection.php';
 if (isset($_GET["delay"])) {
     sleep((int) ($_GET["delay"]));
 }
-$userid = 1; //$_SESSION('userid');
-
-$stmt = $db->prepare("
-        SELECT 
-              t.item_id
-            , u.user_id AS post_user_id
-            , t.item_text
-            , t.item_done
-            , t.created_date  AS post_created_date
-            , u.username AS post_created_by
-            , c.comment_text
-            , c.created_date AS comment_created_date
-            , c.user_id AS comment_user_id
-            , cu.username AS comment_created_by
-        FROM todolist t 
-        INNER JOIN users u ON t.user_id = u.user_id 
-        LEFT JOIN comments c ON c.item_id = t.item_id 
-        INNER JOIN users cu ON c.user_id = cu.user_id
-        WHERE u.user_id = :userid");
-
-$stmt->execute(array(':userid' => $userid));
-
-$obj = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$userid = 1;
+$stmt = $db->prepare("SELECT todolist.*,users.username FROM todolist,users WHERE item_done <> 1 ORDER BY todolist.created_date DESC");
+$stmt->execute();
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 header('Content-Type: application/json');
-echo (json_encode($obj));
+$items = array();
+foreach ($rows as $row) {
+    $item = array
+        (
+        'item_id' => $row['item_id'],
+        'item_user_id' => $row['user_id'],
+        'item_text' => $row['item_text'],
+        'post_status' => $row['item_done'],
+        'post_created_date' => $row['created_date'],
+        'post_created_by' => $row['username'],
+        'post_comments' => array()
+    );
+    $stmt = $db->prepare("SELECT 
+        	 comments.comment_id
+                ,comments.comment_text
+                ,comments.user_id AS comment_user_id
+                ,comments.created_date AS comment_created_date
+                ,users.username
+            FROM comments,users WHERE comments.item_id=:post_id ORDER BY comments.created_date DESC");
+    $stmt->execute(array(':post_id' => $row['item_id']));
+    $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $item['comments'] = $comments;
+    $items[] = $item;
+}
+echo (json_encode($items, JSON_PRETTY_PRINT));
