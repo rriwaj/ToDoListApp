@@ -24,7 +24,7 @@
                         <span class="todo-item-option">
                             <a href="javascript:void(0);"  class="dropdown-toggle glyphicon glyphicon-chevron-down pull-right" data-toggle="dropdown"></a>                         
                             <ul class="dropdown-menu pull-right">
-                                <li><a href="javascript:void(0);">Edit</a></li>                            
+                                <li><a href="javascript:void(0);" id="edit">Edit</a></li>                            
                                 <li><a href="javascript:void(0);">Delete</a></li>
                                 <li><a href="javascript:void(0);">Done</a></li>
                             </ul>

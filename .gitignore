@@ -3,7 +3,6 @@ nbproject/
 inc/mysql_config.php
 !.gitignore
 
-
 nbproject/private/
 build/
 nbbuild/
