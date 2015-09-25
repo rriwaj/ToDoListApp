@@ -77,7 +77,7 @@ $(function () {
         function update() {
             $.post('updatepost.php', {item_text: this.todoObj.text, item_id: this.todoObj.itemid})
                     .done(function (data) {
-        }
+        });}
         //D
         function remove() {
             $.post('removepost.php', {item_id: this.todoObj.itemid}).done(function (data) {

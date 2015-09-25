@@ -130,5 +130,5 @@ if (!isset($_SESSION['username'])) {
 
     <?php
 }
-include("include/bottom.html");
+//include("include/bottom.html");
 
