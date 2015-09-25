@@ -1,5 +1,12 @@
 $(function () {
-
+    var id;
+    (function getUserInfo() {
+        $.ajax({url: 'sessioninfo.php', type: 'get', async: false,
+            success: function (data) {
+                id = data;
+            }
+        });
+    })();
     $("#btnAddNewToDo").on('click', function () {
         var task = $("#txtNewToDo").val();
         insertNewToDo(task);
@@ -54,7 +61,7 @@ $(function () {
             // ajax method call to php file
             //alert(this.todoObj.text);
             $.post('postrear.php', {item_text: this.todoObj.text}).done(function (data) {
-//                alert(data);
+                alert(data);
             });
         }
         //R
@@ -70,13 +77,10 @@ $(function () {
         function update() {
             $.post('updatepost.php', {item_text: this.todoObj.text, item_id: this.todoObj.itemid})
                     .done(function (data) {
-//                        alert(data);
-                    });
         }
         //D
         function remove() {
             $.post('removepost.php', {item_id: this.todoObj.itemid}).done(function (data) {
-//                alert(data);
             });
         }
         var publicAPI = {
@@ -85,7 +89,6 @@ $(function () {
             update: update,
             delete: remove,
             fetchdata: retrieve
-                    //fetch: retrievebyid
         };
         return publicAPI;
     };
@@ -106,9 +109,6 @@ $(function () {
     }
 
     function update(item_id, userInput) {
-//        if (userInput.length < 0) {
-//            return;
-//        }
         var obj = {
             text: userInput,
             itemid: item_id

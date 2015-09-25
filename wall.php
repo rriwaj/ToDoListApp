@@ -1,9 +1,16 @@
 <!DOCTYPE html>
-<?php include 'include/top.html' ?>
-<link href="css/style.css" rel="stylesheet" type="text/css"/>
-<body>    
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    $_SESSION['error'] = "Please login First";
+    header("Location: login.php");
+} else {
+    include 'include/top.html';
+    ?>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
     <script src="js/wall.js" type="text/javascript"></script>
     <script src="js/comments.js" type="text/javascript"></script>
+    <div style="margin-right: 100px;text-align: right"><a href="logout.php">Logout</a></div>
     <div class="col-md-3">   
     </div>
     <div class="col-md-9">
@@ -120,5 +127,8 @@
             </ul>
         </div>
     </div>
-</body>
-</html>
+
+    <?php
+}
+include("include/bottom.html");
+

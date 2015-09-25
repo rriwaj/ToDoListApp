@@ -1,6 +1,6 @@
 <?php
-require './include/db-connection.php';
 
+require './include/db-connection.php';
 $name = filter_input(INPUT_POST, "name");
 $password = filter_input(INPUT_POST, "password");
 
@@ -20,10 +20,11 @@ if ($currentUser) {
 if ($user != NULL && $password === $user['password']) {
     $_SESSION['username'] = $name;
     $_SESSION['userid'] = $user['user_id'];
-    header("Location: login.php");
+    header("Location: wall.php");
 } else {
     $_SESSION['error'] = "Invalid username or password";
-    header("Location: todolistobject.php");
+    header("Location: login.php");
     exit();
 }
+//echo json_encode(array("username" => $name, "b" => $user['user_id']));
 ?>
