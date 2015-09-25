@@ -1,4 +1,10 @@
 $(function () {
+    $.get('login.php')
+            .done(ajsuccess)
+
+    function ajsuccess(data) {
+        alert(data);
+    }
     $("#loader").hide();
     $(document).ajaxStart(function () {
         $('#quotes').empty();
@@ -12,9 +18,9 @@ $(function () {
                 .done(success)
                 .fail(failure);
     });
-}) ;
+});
 function success(data) {
-  //  var myData = JSON.parse(data);
+    //  var myData = JSON.parse(data);
     $("#text").append((data[0].item_text));
 }
 function failure() {

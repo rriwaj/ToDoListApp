@@ -21,7 +21,7 @@ $stmt = $db->prepare("
         FROM todolist t 
         INNER JOIN users u ON t.user_id = u.user_id 
         LEFT JOIN comments c ON c.item_id = t.item_id 
-        INNER JOIN users cu ON c.user_id = cu.user_id
+        LEFT JOIN users cu ON c.user_id = cu.user_id
         WHERE u.user_id = :userid");
 
 $stmt->execute(array(':userid' => $userid));

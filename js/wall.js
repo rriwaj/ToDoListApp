@@ -4,24 +4,57 @@ $(function () {
         var task = $("#txtNewToDo").val();
         insertNewToDo(task);
     });
-    $(document.body).on('click', '.edit-post', function () {
+    $(document.body).on('click', '.edit-post', function () {  //edit function call
         var postId = $(this).data("id");
-        var item_text = "replace with me";//        $(".todo-text").val();
-        update(item_text, postId);
+        var $rootPost = $("[data-todoitem-id=" + postId + "]").find('.todo-text');
+        var item_text = $rootPost.find("label").text();
+
+        var $commentForm = $('<form role="form">');
+        var $InputGroup = $('<div data-input-group-id="' + postId + '" class="input-group">');
+        var $txt = $('<input type="text" value="' + item_text + '" id="12" class="form-control">');
+        $commentForm.append($InputGroup);
+        $InputGroup.append($txt);
+        var $btnComment = $('<span class="input-group-btn">').append('<button class="btn btn-default" data-edit-id="' + postId + '" data-id="' + 122 + '" type="button">Update</button>');
+        $InputGroup.append($btnComment);
+        $rootPost.replaceWith($InputGroup);
+
+        var $btn = $('.todo-items').find("[data-todoitem-id=" + postId + "]").find("button");
+
+        $btn.on('click', function () {
+            var $textEdit = $('#12').val();
+            var d = new Date();
+            var curr_date = d.getDate();
+            var curr_month = d.getMonth();
+            var curr_year = d.getFullYear();
+            var curr_time_hr = d.getHours();
+            var curr_time_min = d.getMinutes();
+            var curr_time_sec = d.getSeconds();
+            $dateTime = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_time_hr + ":" + curr_time_min + ":" + curr_time_sec;
+            update(postId, $textEdit);
+            var $todoText = $('<div class="todo-text">').append("<label>" + $textEdit + "</label>").append('<br><span class="date sub-text">on ' + $dateTime + '</span>');
+            $('[data-input-group-id=' + postId + ']').replaceWith($todoText); // problem with same input group class also in comment
+        });
     });
-    $(".delete-post").on('click', function () {
+
+    $(document.body).on('click', '.delete-post', function () {  //delete function call
         var postId = $(this).data("id");
         $(".todo-text").val();
         remove(postId);
     });
 
-    var todoOperation = function () {
+    $(document.body).on('click', '.done-post', function () {      //update done call
+        var postId = $(this).data("id");
+        update(postId);
+    });
+
+
+    var todoOperation = function () {  //factory object
         var todoObj; //C
         function insert() {
             // ajax method call to php file
             //alert(this.todoObj.text);
             $.post('postrear.php', {item_text: this.todoObj.text}).done(function (data) {
-                alert(data);
+//                alert(data);
             });
         }
         //R
@@ -33,26 +66,17 @@ $(function () {
             });
             return todoObj;
         }
-        // R by id
-//        function retrievebyid() {
-//            $.ajax({url: 'todolistbyid.php', type: 'get', async: false, data: {}, //4,
-//                success: function (data) {
-//                    todoObj = data;
-//                }
-//            });
-//            return todoObj;
-//        }
         //U
         function update() {
             $.post('updatepost.php', {item_text: this.todoObj.text, item_id: this.todoObj.itemid})
                     .done(function (data) {
-                        alert(data);
+//                        alert(data);
                     });
         }
         //D
         function remove() {
             $.post('removepost.php', {item_id: this.todoObj.itemid}).done(function (data) {
-                alert(data);
+//                alert(data);
             });
         }
         var publicAPI = {
@@ -65,6 +89,7 @@ $(function () {
         };
         return publicAPI;
     };
+
     function insertNewToDo(userInput) {
         //1. validation
         //2. create javascript object for publicAPI
@@ -80,10 +105,10 @@ $(function () {
         operation.add();
     }
 
-    function update(userInput, item_id) {
-        if (userInput.length < 0) {
-            return;
-        }
+    function update(item_id, userInput) {
+//        if (userInput.length < 0) {
+//            return;
+//        }
         var obj = {
             text: userInput,
             itemid: item_id
@@ -98,6 +123,7 @@ $(function () {
         var result = operation1.fetchdata();
         displayAllPosts(result);
     })();
+
     function remove(postid) {
         var obj = {
             itemid: postid
@@ -108,14 +134,10 @@ $(function () {
     }
 
 });
-//function call() {
-//    alert('here');
-//}
-function displayAllPosts(result) {
 
+function displayAllPosts(result) {
     var $todoItems = $('<ul class="todo-items">');
     $(result).each(function (idx, obj) {
-//            document.write(JSON.stringify(obj));
         var $todoItem = $('<li data-todoitem-id="' + obj.item_id + '">');
         // post section
         var $todoItemAuthor = $('<div class="dropdown todo-author">').text(obj.post_created_by); // join and bring user name
@@ -131,7 +153,7 @@ function displayAllPosts(result) {
         $todoItemOption.append($todoItemOptionMenu);
         $todoItemAuthor.append($todoItemOption);
         $todoItem.append($todoItemAuthor);
-        var $todoText = $('<div class="todo-text">').text(obj.item_text).append('<br><span class="date sub-text">on ' + obj.post_created_date + '</span>');
+        var $todoText = $('<div class="todo-text">').append("<label>" + obj.item_text + "</label>").append('<br><span class="date sub-text">on ' + obj.post_created_date + '</span>');
         $todoItem.append($todoText);
         // comment section
         var $todoCommentsAll = $('<ul class="todo-comments-all">');
@@ -160,11 +182,6 @@ function displayAllPosts(result) {
         $todoItems.append($todoItem);
     });
     $('.todo-all').prepend($todoItems);
-//
-//
-//        var i;
-//        for (i = 0; i < 2; i++) {
-//            console.log(result[i].item_text, result[i].user_id, result[i].created_date);
-//        }
+
 }
 

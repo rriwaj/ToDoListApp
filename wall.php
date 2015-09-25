@@ -26,7 +26,7 @@
                             <ul class="dropdown-menu pull-right">
                                 <li><a href="javascript:void(0);" data-id="1" class="edit-post">Edit</a></li>                            
                                 <li><a href="javascript:void(0);" data-id="1" class="delete-post">Delete</a></li>
-                                <li><a href="javascript:void(0);">Done</a></li>
+                                <li><a href="javascript:void(0);" data-id="1" class="done-post">Done</a></li>
                             </ul>
                         </span>
                     </div>
