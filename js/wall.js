@@ -1,4 +1,5 @@
 $(function () {
+    "use strict";
     var id;
     (function getUserInfo() {
         $.ajax({url: 'sessioninfo.php', type: 'get', async: false,
@@ -9,8 +10,9 @@ $(function () {
     })();
     $("#btnAddNewToDo").on('click', function () {
         var task = $("#txtNewToDo").val();
-        if (task.length > 0)
+        if (task.length > 0) {
             insertNewToDo(task);
+        }
         $("#txtNewToDo").val("");
     });
     $(document.body).on('click', '.edit-post', function () {  //edit function call
@@ -37,7 +39,7 @@ $(function () {
             var curr_time_hr = d.getHours();
             var curr_time_min = d.getMinutes();
             var curr_time_sec = d.getSeconds();
-            $dateTime = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_time_hr + ":" + curr_time_min + ":" + curr_time_sec;
+            var $dateTime = curr_year + "-" + curr_month + "-" + curr_date + " " + curr_time_hr + ":" + curr_time_min + ":" + curr_time_sec;
             update(postId, $textEdit);
 //            var $todoText = $('<div class="todo-text">').append("<label>" + $textEdit + "</label>").append('<br><span class="date sub-text">on ' + $dateTime + '</span>');
 //            $('[data-input-group-id=' + postId + ']').replaceWith($todoText); // problem with same input group class also in comment
@@ -88,7 +90,7 @@ $(function () {
             todoObj: todoObj,
             add: insert,
             update: update,
-            delete: remove,
+            erase: remove,
             fetchdata: retrieve
         };
         return publicAPI;
@@ -131,7 +133,7 @@ $(function () {
         };
         var operation = todoOperation();
         operation.todoObj = obj;
-        operation.delete();
+        operation.erase();
     }
 
     function displayAllPosts(result) {
@@ -143,12 +145,11 @@ $(function () {
             if (obj.item_user_id === id) {
                 var $todoItemOption = $('<span class="todo-item-option">')
                         .append('<a href="#"  class="dropdown-toggle glyphicon glyphicon-chevron-down pull-right" data-toggle="dropdown"></a>');
-                var $todoItemOptionMenu = $(
-                        '<ul class="dropdown-menu pull-right">' +
-                        '<li><a href="#" class="edit-post" data-id="' + obj.item_id + '">Edit</a></li>' +
-                        '<li><a href="#" class="delete-post" data-id="' + obj.item_id + '">Delete</a></li>' +
-                        '<li><a href="#" class="done-post" data-id="' + obj.item_id + '">Done</a></li>' +
-                        '</ul>'
+                var $todoItemOptionMenu = $('<ul class="dropdown-menu pull-right">' 
+                        + '<li><a href="#" class="edit-post" data-id="' + obj.item_id + '">Edit</a></li>' 
+                        + '<li><a href="#" class="delete-post" data-id="' + obj.item_id + '">Delete</a></li>' 
+                        + '<li><a href="#" class="done-post" data-id="' + obj.item_id + '">Done</a></li>' 
+                        +'</ul>'
                         );
                 $todoItemOption.append($todoItemOptionMenu);
                 $todoItemAuthor.append($todoItemOption);
@@ -217,8 +218,7 @@ $(function () {
         // R by id
         function retrieveById(id) {
 //            $.get('commentsrear.php')
-            return cmntObj = {
-            };
+            return cmntObj;
         }
         //U
         function update() {
@@ -233,7 +233,7 @@ $(function () {
             add: insert,
             select: retrieve,
             selectById: retrieveById,
-            delete: remove
+            erase: remove
         };
         return publicAPI;
     };

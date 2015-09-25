@@ -9,23 +9,17 @@ if (isset($_SESSION['error'])) {
 }
 $user = filter_input(INPUT_COOKIE, "currentUser");
 ?>
-<style>
-    .form-signin{
-        max-width: 330px;
-        padding: 15px;
-        margin: 0 auto;}
-    </style>
-    <div style="height: 30px"></div>
+<div style="height: 30px"></div>
 
 <div class="container">
     <form class="form-signin" action="loginsubmit.php" method="post">
         <h2 class="form-signin-heading">User Login</h2>
 
-        <label for="inputUser" class="sr-only"></label>
+        <label  class="sr-only"></label>
         <input class="form-control" placeholder="username" required autofocus type="text" name="name"<?php if ($user) : ?>
                    value="<?= $user ?>"  <?php endif; ?>  />
 
-        <label for="inputPassword" class="sr-only"></label>
+        <label class="sr-only"></label>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
 
         <div class="checkbox">
@@ -41,8 +35,7 @@ $user = filter_input(INPUT_COOKIE, "currentUser");
         <input  class="btn btn-lg btn-primary btn-block" type="submit"  value="login"/>
         <div style="text-align: right">
             <br>            
-            New User ?? <a href="signup1.php">Register here</a></h2>
-        </div>
+            New User ?? <a href="signup1.php">Register here</a>  </div>
 
     </form>
 

@@ -9,22 +9,22 @@
 
                 <div class="form-group col-lg-12">
                     <label>Username</label>
-                    <input type="text" name="username" class="form-control" id="" >
+                    <input type="text" name="username" class="form-control"  >
                 </div>
 
                 <div class="form-group col-lg-6">
                     <label>Password</label>
-                    <input type="password" name="password" class="form-control" id="">
+                    <input type="password" name="password" class="form-control">
                 </div>
 
                 <div class="form-group col-lg-6">
                     <label>Confirm Password</label>
-                    <input type="password" name="" class="form-control" id="" value="">
+                    <input type="password" name="cnfpassword" class="form-control">
                 </div>
 
                 <div class="form-group col-lg-12">
                     <label>Email Address</label>
-                    <input type="email" name="emailAddress" class="form-control" id="" >
+                    <input type="email" name="emailAddress" class="form-control" >
                 </div>
 
                 <input  class="btn btn-lg btn-primary btn-block" type="submit"  value="Register"/>
